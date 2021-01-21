@@ -67,11 +67,13 @@ header {
   line-height: 3rem;
   margin-top: 1rem;
 }
-.card.total {
+.card.total,
+.card.total p,
+.card.total h3 {
   background-color: #49aa26;
-  color: white;
+  color: white !important;
 }
-/* data table==============================
+/* Data Table==============================
  */
 #data_table {
   width: 100%;
@@ -85,7 +87,7 @@ table tbody tr td:first-child {
 table th {
   background-color: white;
 
-  font-weight: normal;
+  font-weight: 600;
   padding: 1rem 2rem;
 
   text-align: left;
@@ -101,11 +103,27 @@ table td {
   padding: 1rem 2rem;
   font-weight: normal;
 }
+.description {
+  color: var(--color-dark-blue);
+}
+.income {
+  color: #12a545;
+}
+.expensive {
+  color: #e92929;
+}
+
+/* Transaction==============================
+ */
 
 /* Footer==============================
  */
 footer {
   background-color: #2d4a22;
-  padding: 5rem;
+  padding: 4rem 0 3rem;
   text-align: center;
+  margin-top: 3rem;
+}
+footer p {
+  color: white;
 }
