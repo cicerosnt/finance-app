@@ -1,5 +1,8 @@
 :root {
   --color-dark-blue: #363f5f;
+  --color-grenn: #49aa26;
+  --color-dark-grenn: #2d4a22;
+  --color-red: #e92929;
 }
 * {
   padding: 0;
@@ -7,6 +10,9 @@
   box-sizing: border-box;
 
   color: var(--color-dark-blue);
+}
+html {
+  font-size: 93.75%; /* 15px */
 }
 
 body {
@@ -16,6 +22,17 @@ body {
 .container {
   width: min(90vw, 800px);
   margin: auto;
+}
+.sr_only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0);
+  white-space: nowrap;
+  border-width: 0;
 }
 /* Titles=============================
  */
@@ -29,7 +46,7 @@ h2 {
 /* Header=============================
  */
 header {
-  background-color: #2d4a22;
+  background-color: var(--color-dark-grenn);
   padding: 2rem 0 10rem;
   text-align: center;
 }
@@ -61,6 +78,10 @@ header {
 .card h3 {
   font-weight: normal;
   font-size: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .card p {
   font-size: 2rem;
@@ -69,20 +90,36 @@ header {
 }
 .card.total,
 .card.total p,
-.card.total h3 {
-  background-color: #49aa26;
+.card.total h3,
+.card.total span {
+  background-color: var(--color-grenn);
   color: white !important;
 }
 /* Data Table==============================
  */
+#transaction {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
 #data_table {
   width: 100%;
   border-spacing: 0 0.5rem;
   color: #969cb3;
 }
+table {
+  width: 100%;
+}
+table tr td img:hover {
+  cursor: pointer;
+}
 table thead tr th:first-child,
 table tbody tr td:first-child {
   border-radius: 0.25rem 0 0 0.25rem;
+}
+table thead tr th:last-child,
+table tbody tr td:last-child {
+  border-radius: 0 0.25rem 0.25rem 0;
 }
 table th {
   background-color: white;
@@ -113,13 +150,133 @@ table td {
   color: #e92929;
 }
 
-/* Transaction==============================
+/* buttons==============================
  */
+a {
+  color: var(--color-grenn);
+  text-decoration: none;
 
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+a svg {
+  fill: var(--color-grenn);
+}
+a svg {
+  fill: var(--color-grenn);
+}
+a:hover {
+  color: var(--color-dark-grenn);
+}
+button {
+  width: 100%;
+  height: 50px;
+  cursor: pointer;
+
+  border: none;
+
+  color: white;
+  background-color: var(--color-dark-grenn);
+
+  padding: 0;
+
+  border-radius: 0.25rem;
+}
+button:hover {
+  background-color: var(--color-grenn);
+}
+.button.new {
+  margin-bottom: 0.8rem;
+}
+.button.cancel {
+  color: var(--color-red);
+  border: 2px solid var(--color-red);
+  border-radius: 5px;
+
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0.6;
+}
+.button.cancel:hover {
+  opacity: 1;
+}
+/* modal==============================
+ */
+.modal_overlay {
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  position: fixed;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  visibility: hidden;
+
+  z-index: 999;
+}
+.modal_overlay.active {
+  opacity: 1 !important;
+  visibility: visible !important ;
+}
+.modal {
+  background-color: #f0f2f5;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 1;
+}
+.input_group {
+  margin-top: 0.8rem;
+}
+.input_group span {
+  opacity: 0.4;
+}
+.input_group.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.input_group .button,
+.input_group button {
+  width: 180px;
+}
+/* Form==============================
+ */
+.form {
+  max-width: 500px;
+}
+.input_group {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 0.8rem;
+  justify-content: space-between;
+}
+.form h2 {
+  margin-top: 0;
+}
+.form input {
+  width: 100%;
+  border: 0;
+  border-radius: 0.2rem;
+  padding: 0.8rem;
+}
 /* Footer==============================
  */
 footer {
-  background-color: #2d4a22;
+  background-color: var(--color-dark-grenn);
   padding: 4rem 0 3rem;
   text-align: center;
   margin-top: 3rem;

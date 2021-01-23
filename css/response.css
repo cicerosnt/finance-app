@@ -1,0 +1,13 @@
+/* atrows */
+@media (min-width: 800px) {
+  /*apartir de 800px aplique isso*/
+  html {
+    font-size: 87.5%;
+  }
+  #balance {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}

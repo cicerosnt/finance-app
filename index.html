@@ -7,34 +7,54 @@
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/poppins.css" />
+    <link rel="stylesheet" href="css/response.css" />
   </head>
   <body>
     <header>
+      <!-- <img src="./assets/logo.svg" alt="" srcset="Logo- Cabra's Finance"> -->
       <h1 id="logo">Cabra's Finance</h1>
     </header>
 
     <main class="container">
       <section id="balance">
-        <h2>Balaço</h2>
+        <h2 class="sr_only">Balaço</h2>
 
         <div class="card">
-          <h3>Entrada</h3>
-          <p class="expensive">R$ 3.000,00</p>
+          <h3>
+            <span>Entrada</span>
+            <img src="./assets/income.svg" alt="Entrada" srcset="" />
+          </h3>
+          <p class="income">R$ 3.000,00</p>
         </div>
 
         <div class="card">
-          <h3>Saída</h3>
-          <p class="income">R$ 6.000,00</p>
+          <h3>
+            <span>Saída</span>
+            <img src="./assets/expense.svg" alt="Saída" srcset="" />
+          </h3>
+          <p class="expensive">R$ 6.000,00</p>
         </div>
 
         <div class="card total">
-          <h3>Total</h3>
+          <h3>
+            <span>Total</span>
+            <img src="./assets/total.svg" alt="Total" srcset="" />
+          </h3>
           <p>R$ 3.000,00</p>
         </div>
       </section>
 
       <section id="transaction">
-        <h2>Transações</h2>
+        <h2 class="sr_only">Transações</h2>
+
+        <a onclick="modal.open()" href="#" class="button new">
+          <img
+            src="/assets/plus.svg"
+            alt="Adicionar nova transação"
+            srcset=""
+          />
+          Lançamento
+        </a>
 
         <table id="data_table">
           <thead>
@@ -42,6 +62,7 @@
               <th class="description">Descrição</th>
               <th>Valor</th>
               <th>Data</th>
+              <th>Ação</th>
             </tr>
           </thead>
           <tbody>
@@ -49,24 +70,97 @@
               <td class="description">Criação de site</td>
               <td class="income">R$ 5.000,00</td>
               <td>21/01/2021</td>
+              <td>
+                <img
+                  src="./assets/delete.svg"
+                  alt="Remover lançamento"
+                  srcset=""
+                  title="Excluir"
+                />
+              </td>
             </tr>
             <tr>
               <td class="description">Monetização</td>
               <td class="income">R$ 4.000,00</td>
               <td>21/01/2021</td>
+              <td>
+                <img
+                  src="./assets/delete.svg"
+                  alt="Remover lançamento"
+                  srcset=""
+                  title="Excluir"
+                />
+              </td>
             </tr>
             <tr>
               <td class="description">Freela</td>
               <td class="expensive">R$ - 2.000,00</td>
               <td>21/01/2021</td>
+              <td>
+                <img
+                  src="./assets/delete.svg"
+                  alt="Remover lançamento"
+                  srcset=""
+                  title="Excluir"
+                />
+              </td>
             </tr>
           </tbody>
         </table>
       </section>
     </main>
 
+    <div class="modal_overlay">
+      <div class="modal">
+        <div class="form">
+          <h2>Novo lançamento</h2>
+          <form action="">
+            <div class="input_group">
+              <label class="sr_only" for="description">Descrição</label>
+              <input
+                type="text"
+                name="description"
+                id="description"
+                placeholder="Descrição"
+              />
+            </div>
+
+            <div class="input_group">
+              <label class="sr_only" for="amount">Valor</label>
+              <input
+                type="number"
+                name="amount"
+                step="0.01"
+                id="amount"
+                placeholder="Valor"
+              />
+
+              <label class="sr_only" for="date">Data</label>
+              <input type="date" name="date" id="date" placeholder="11/11/01" />
+            </div>
+
+            <div class="input_group">
+              <span
+                >Use o sinal - (negativo) para despesas, e , (vírgula) para
+                casas décimais.</span
+              >
+            </div>
+
+            <div class="input_group actions">
+              <a onclick="modal.close()" href="#" class="button cancel"
+                >Calcelar</a
+              >
+              <button type="submit">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <footer>
       <p>© 2021 Cabra's Finance</p>
     </footer>
+
+    <script src="./js/script.js"></script>
   </body>
 </html>
