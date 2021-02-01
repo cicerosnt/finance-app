@@ -53,7 +53,7 @@ header {
 
 #logo {
   color: white;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 /* Balance============================
@@ -92,7 +92,6 @@ header {
 .card.total p,
 .card.total h3,
 .card.total span {
-  background-color: var(--color-grenn);
   color: white !important;
 }
 /* Data Table==============================
@@ -147,7 +146,13 @@ table td {
   color: #12a545;
 }
 .expensive {
-  color: #e92929;
+  color: var(--color-red);
+}
+.expensiveBg {
+  background-color: var(--color-red) !important;
+}
+.incomeBg {
+  background-color: var(--color-grenn) !important;
 }
 
 /* buttons==============================
@@ -276,10 +281,15 @@ button:hover {
 /* Footer==============================
  */
 footer {
+  width: 100%;
+  position: relative;
+  left: 0;
+  bottom: 0;
   background-color: var(--color-dark-grenn);
   padding: 4rem 0 3rem;
   text-align: center;
   margin-top: 3rem;
+  margin-bottom: 0;
 }
 footer p {
   color: white;

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cabra's Finance</title>
 
+    <link rel="shortcut icon" href="./assets/total.svg" type="image/x-icon" />
+
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/poppins.css" />
     <link rel="stylesheet" href="css/response.css" />
@@ -24,7 +26,7 @@
             <span>Entrada</span>
             <img src="./assets/income.svg" alt="Entrada" srcset="" />
           </h3>
-          <p class="income">R$ 3.000,00</p>
+          <p class="income" id="totalIncome">R$ 3.000,00</p>
         </div>
 
         <div class="card">
@@ -32,7 +34,7 @@
             <span>Saída</span>
             <img src="./assets/expense.svg" alt="Saída" srcset="" />
           </h3>
-          <p class="expensive">R$ 6.000,00</p>
+          <p class="expensive" id="totalExpense">R$ 6.000,00</p>
         </div>
 
         <div class="card total">
@@ -40,7 +42,7 @@
             <span>Total</span>
             <img src="./assets/total.svg" alt="Total" srcset="" />
           </h3>
-          <p>R$ 3.000,00</p>
+          <p id="totalAll">R$ 3.000,00</p>
         </div>
       </section>
 
@@ -59,53 +61,14 @@
         <table id="data_table">
           <thead>
             <tr>
+              <th>ID</th>
               <th class="description">Descrição</th>
               <th>Valor</th>
               <th>Data</th>
               <th>Ação</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td class="description">Criação de site</td>
-              <td class="income">R$ 5.000,00</td>
-              <td>21/01/2021</td>
-              <td>
-                <img
-                  src="./assets/delete.svg"
-                  alt="Remover lançamento"
-                  srcset=""
-                  title="Excluir"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td class="description">Monetização</td>
-              <td class="income">R$ 4.000,00</td>
-              <td>21/01/2021</td>
-              <td>
-                <img
-                  src="./assets/delete.svg"
-                  alt="Remover lançamento"
-                  srcset=""
-                  title="Excluir"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td class="description">Freela</td>
-              <td class="expensive">R$ - 2.000,00</td>
-              <td>21/01/2021</td>
-              <td>
-                <img
-                  src="./assets/delete.svg"
-                  alt="Remover lançamento"
-                  srcset=""
-                  title="Excluir"
-                />
-              </td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
       </section>
     </main>
@@ -114,7 +77,7 @@
       <div class="modal">
         <div class="form">
           <h2>Novo lançamento</h2>
-          <form action="">
+          <form action="" onSubmit="Form.submit(event)">
             <div class="input_group">
               <label class="sr_only" for="description">Descrição</label>
               <input
