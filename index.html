@@ -26,7 +26,7 @@
             <span>Entrada</span>
             <img src="./assets/income.svg" alt="Entrada" srcset="" />
           </h3>
-          <p class="income" id="totalIncome">R$ 3.000,00</p>
+          <p class="income" id="totalIncome">R$ 0,00</p>
         </div>
 
         <div class="card">
@@ -34,7 +34,7 @@
             <span>Saída</span>
             <img src="./assets/expense.svg" alt="Saída" srcset="" />
           </h3>
-          <p class="expensive" id="totalExpense">R$ 6.000,00</p>
+          <p class="expensive" id="totalExpense">R$ 0,00</p>
         </div>
 
         <div class="card total">
@@ -42,14 +42,14 @@
             <span>Total</span>
             <img src="./assets/total.svg" alt="Total" srcset="" />
           </h3>
-          <p id="totalAll">R$ 3.000,00</p>
+          <p id="totalAll">R$ 0,00</p>
         </div>
       </section>
 
       <section id="transaction">
         <h2 class="sr_only">Transações</h2>
 
-        <a onclick="modal.open()" href="#" class="button new">
+        <a onclick="Modal.open();" href="#" class="button new">
           <img
             src="/assets/plus.svg"
             alt="Adicionar nova transação"
@@ -61,7 +61,7 @@
         <table id="data_table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Indice</th>
               <th class="description">Descrição</th>
               <th>Valor</th>
               <th>Data</th>
@@ -110,7 +110,7 @@
             </div>
 
             <div class="input_group actions">
-              <a onclick="modal.close()" href="#" class="button cancel"
+              <a onclick="Modal.close()" href="#" class="button cancel"
                 >Calcelar</a
               >
               <button type="submit">Salvar</button>
