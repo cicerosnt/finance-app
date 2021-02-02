@@ -1,51 +1,43 @@
 //transaction
-const transactions = [
-  {
-    id: 1,
-    description: 'Aluguel',
-    amount: -50000,
-    date: '23/01/2021',
+id = 1;
+
+const Modal = {
+  open() {
+    document.querySelector('.modal_overlay').classList.add('active');
   },
-  {
-    id: 2,
-    description: 'Aluguel casa 1',
-    amount: -400000,
-    date: '23/01/2021',
+  close() {
+    document.querySelector('.modal_overlay').classList.remove('active');
   },
-  {
-    id: 4,
-    description: 'Cachaça',
-    amount: 1000,
-    date: '23/01/2021',
+};
+
+const Storange = {
+  get() {
+    return JSON.parse(localStorage.getItem('cabra.finances:transaction')) || [];
   },
-  {
-    id: 5,
-    description: 'Alguma coisa aqui',
-    amount: 36520,
-    date: '23/01/2021',
+  set(transaction) {
+    localStorage.setItem(
+      'cabra.finances:transaction',
+      JSON.stringify(transaction)
+    );
   },
-  {
-    id: 6,
-    description: 'Alguma coisa 2',
-    amount: 6859568,
-    date: '23/01/2021',
-  },
-];
+};
+
 const Transaction = {
-  all: transactions,
+  all: Storange.get(),
+
   add(trasaction) {
     Transaction.all.push(trasaction);
 
     App.reload();
   },
   remove(index) {
-    Transaction.splice(index, 1);
+    Transaction.all.splice(index, 1);
 
     App.reload();
   },
   incomes() {
     let income = 0;
-    transactions.forEach((transaction) => {
+    Transaction.all.forEach((transaction) => {
       if (transaction.amount > 0) {
         income += transaction.amount;
       }
@@ -56,7 +48,7 @@ const Transaction = {
 
   expenses() {
     let expense = 0;
-    transactions.forEach((transaction) => {
+    Transaction.all.forEach((transaction) => {
       if (transaction.amount < 0) {
         expense += transaction.amount;
       }
@@ -76,20 +68,22 @@ const DOM = {
   addTransaction(transaction, index) {
     // console.log(transaction);
     const tr = document.createElement('tr');
-    tr.innerHTML = DOM.innerHTMLTransaction(transaction);
+    tr.innerHTML = DOM.innerHTMLTransaction(transaction, index);
+    tr.dataset.index = index;
 
     DOM.transactionContainer.appendChild(tr);
   },
-  innerHTMLTransaction(transaction) {
-    const cssClass = transaction.amount > 0 ? 'income' : 'expensive';
+  innerHTMLTransaction(transaction, index) {
+    const cssClass =
+      transaction.amount > 0 ? 'income totalColor' : 'expensive totalColor ';
     const amount = Utils.formatCurrency(transaction.amount);
     const html = `
-        <td>${transaction.id}</td>
+        <td>${index + 1}</td>
         <td class="description">${transaction.description}</td>
         <td class="${cssClass}">${amount}</td>
         <td>${transaction.date}</td>
         <td>
-          <img
+          <img onclick="Transaction.remove(${index})"
             src="./assets/delete.svg"
             alt="Remover lançamento"
             srcset=""
@@ -112,7 +106,7 @@ const DOM = {
     const cssClass = Transaction.total() < 0 ? 'expensiveBg' : 'incomeBg';
     document.querySelector('.total').classList.add(cssClass);
   },
-  clearTransactions() {
+  cleartransaction() {
     DOM.transactionContainer.innerHTML = '';
   },
 };
@@ -131,19 +125,14 @@ const Utils = {
 
     return signal + ' ' + value;
   },
-};
+  formatAmount(value) {
+    date = Number(value) * 100;
 
-const App = {
-  init() {
-    Transaction.all.forEach((transaction) => {
-      DOM.addTransaction(transaction);
-    });
-
-    DOM.updatebalance();
+    return date;
   },
-  reload() {
-    DOM.clearTransactions();
-    App.init();
+  formatDate(value) {
+    const aplitedDate = value.split('-');
+    return `${aplitedDate[2]}/${aplitedDate[1]}/${aplitedDate[0]}`;
   },
 };
 
@@ -153,7 +142,7 @@ const Form = {
   date: document.querySelector('input#date'),
   getValues() {
     return {
-      descriptio: Form.description.value,
+      description: Form.description.value,
       amount: Form.amount.value,
       date: Form.date.value,
     };
@@ -161,23 +150,64 @@ const Form = {
 
   validateField() {
     const { description, amount, date } = Form.getValues();
-    console.log(description);
+    if (
+      description.trim() === '' ||
+      amount.trim() === '' ||
+      date.trim() === ''
+    ) {
+      throw new Error('Verifiue os campos, todos devem estar preenchidos');
+    }
   },
-  formatData() {
-    console.log('Formatar os dados');
+  formatValues() {
+    let { description, amount, date } = Form.getValues();
+    amount = Utils.formatAmount(amount);
+    date = Utils.formatDate(date);
+
+    return { id, description, amount, date };
+  },
+  commitTransaction(transaction) {
+    Transaction.add(transaction);
+  },
+  clearFields() {
+    Form.description.value = '';
+    Form.amount.value = '';
+    Form.date.value = '';
   },
   submit(event) {
     event.preventDefault();
 
-    Form.validateField();
+    try {
+      Form.validateField();
 
-    Form.formatData();
+      const transaction = Form.formatValues();
 
-    //clean data the form
+      Form.commitTransaction(transaction);
 
-    //close modal
+      Form.clearFields();
 
-    //update data display
+      Modal.close();
+    } catch (error) {
+      alert(error.message);
+    }
+  },
+};
+
+const App = {
+  init() {
+    Transaction.all.forEach((transaction, index) => {
+      id = 0;
+      DOM.addTransaction(transaction, index);
+
+      id = transaction.id + 1;
+    });
+
+    DOM.updatebalance();
+
+    Storange.set(Transaction.all);
+  },
+  reload() {
+    DOM.cleartransaction();
+    App.init();
   },
 };
 
@@ -185,19 +215,11 @@ App.init();
 
 // Transaction.remove(1);
 
-Transaction.add({
-  id: 14,
-  description: 'pa pa pa pa',
-  amount: 1425,
-  date: '21/01/2021',
-});
+// Transaction.add({
+//   id: 14,
+//   description: 'pa pa pa pa',
+//   amount: 1425,
+//   date: '21/01/2021',
+// });
 
 //code modal
-const modal = {
-  open() {
-    document.querySelector('.modal_overlay').classList.add('active');
-  },
-  close() {
-    document.querySelector('.modal_overlay').classList.remove('active');
-  },
-};
